@@ -7,6 +7,9 @@ import com.nr.ws.shared.Utils;
 import com.nr.ws.shared.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -15,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final Utils utils;
+  private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
   public UserDto createUser(UserDto user) {
@@ -25,10 +29,18 @@ public class UserServiceImpl implements UserService {
     UserEntity userEntity = new UserEntity();
     BeanUtils.copyProperties(user, userEntity);
     userEntity.setUserId(utils.generateUserId(30));
-    userEntity.setEncryptedPassword("test");
+    userEntity.setEncryptedPassword(
+      bCryptPasswordEncoder.encode(user.getPassword())
+    );
     UserEntity userEntityDb = userRepository.save(userEntity);
     UserDto userDto = new UserDto();
     BeanUtils.copyProperties(userEntityDb, userDto);
     return userDto;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

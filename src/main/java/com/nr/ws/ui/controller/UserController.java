@@ -1,10 +1,5 @@
 package com.nr.ws.ui.controller;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
-import com.nr.ws.service.UserService;
-import com.nr.ws.shared.dto.UserDto;
-import com.nr.ws.ui.model.request.UserDetailsRequestModel;
-import com.nr.ws.ui.model.response.UserRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nr.ws.service.UserService;
+import com.nr.ws.shared.dto.UserDto;
+import com.nr.ws.ui.model.request.UserDetailsRequestModel;
+import com.nr.ws.ui.model.response.UserRest;
 
 @RestController
 @RequestMapping("/users")
